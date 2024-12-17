@@ -11,13 +11,15 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne // Relation Many-to-One avec User (passager)
+    @ManyToOne
     @JoinColumn(name = "passager_id", nullable = false)
     private User passager;
 
-    @ManyToOne // Relation Many-to-One avec Ride (trajet)
+
+    @ManyToOne
     @JoinColumn(name = "trajet_id", nullable = false)
     private Ride trajet;
+
 
     @Column(nullable = false)
     private LocalDateTime dateReservation = LocalDateTime.now();

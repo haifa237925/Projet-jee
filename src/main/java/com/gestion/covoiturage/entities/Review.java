@@ -10,13 +10,15 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne // Relation Many-to-One avec User (utilisateur qui laisse l'avis)
+    @ManyToOne
     @JoinColumn(name = "utilisateur_id", nullable = false)
     private User utilisateur;
 
-    @ManyToOne // Relation Many-to-One avec Ride (trajet)
+    @ManyToOne
     @JoinColumn(name = "trajet_id", nullable = false)
     private Ride trajet;
+
+
 
     @Column(nullable = false)
     private int note; // Note entre 1 et 5

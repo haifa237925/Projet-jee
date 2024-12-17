@@ -2,6 +2,7 @@ package com.gestion.covoiturage.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "rides") // Table associée à cette entité
@@ -11,9 +12,17 @@ public class Ride {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne // Une relation Many-to-One avec User (un conducteur pour plusieurs trajets)
-    @JoinColumn(name = "conducteur_id", nullable = false) // Associe la colonne "conducteur_id" à l'id de l'utilisateur
+
+    @ManyToOne
+    @JoinColumn(name = "conducteur_id", nullable = false)
     private User conducteur;
+
+    @OneToMany(mappedBy = "trajet")
+    private List<Reservation> reservations;
+
+    @OneToMany(mappedBy = "trajet")
+    private List<Review> reviews;
+
 
     @Column(nullable = false, length = 100)
     private String pointDepart;

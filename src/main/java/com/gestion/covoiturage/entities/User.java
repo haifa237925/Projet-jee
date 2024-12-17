@@ -2,10 +2,21 @@ package com.gestion.covoiturage.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Entity // Indique que cette classe est une entité JPA
+@Entity
 @Table(name = "users") // Associe cette entité à la table "users"
 public class User {
+
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Review> reviews;
+
+    @OneToMany(mappedBy = "passager")
+    private List<Reservation> reservations;
+
+    @OneToMany(mappedBy = "conducteur")
+    private List<Ride> trajets;
+
 
     @Id // Identifie la clé primaire
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incrémentation
@@ -88,6 +99,7 @@ public class User {
     }
 }
 
+// Enumération pour le rôle (Conducteur ou Passager)
 enum Role {
     Conducteur, Passager
 }
