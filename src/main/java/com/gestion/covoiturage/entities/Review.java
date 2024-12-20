@@ -18,8 +18,6 @@ public class Review {
     @JoinColumn(name = "trajet_id", nullable = false)
     private Ride trajet;
 
-
-
     @Column(nullable = false)
     private int note; // Note entre 1 et 5
 

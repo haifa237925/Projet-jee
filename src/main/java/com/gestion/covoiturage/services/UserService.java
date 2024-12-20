@@ -11,30 +11,45 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
-    // Méthode pour récupérer tous les utilisateurs
+    // Récupérer la liste de tous les utilisateurs
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    // Méthode pour récupérer un utilisateur par son ID
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    // Récupérer un utilisateur par ID
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
-    // Méthode pour ajouter un nouvel utilisateur
+    // Ajouter un nouvel utilisateur
     public User addUser(User user) {
         return userRepository.save(user);
     }
 
-    // Méthode pour supprimer un utilisateur
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    // Mettre à jour un utilisateur existant
+    public User updateUser(Long id, User userDetails) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setNom(userDetails.getNom());
+            user.setPrenom(userDetails.getPrenom());
+            user.setEmail(userDetails.getEmail());
+            user.setMotDePasse(userDetails.getMotDePasse());
+            user.setRole(userDetails.getRole());
+            return userRepository.save(user);
+        }
+        return null;
+    }
+
+    // Supprimer un utilisateur par ID
+    public boolean deleteUser(Long id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

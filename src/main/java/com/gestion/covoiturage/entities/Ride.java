@@ -5,13 +5,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "rides") // Table associée à cette entité
+@Table(name = "rides")
 public class Ride {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @ManyToOne
     @JoinColumn(name = "conducteur_id", nullable = false)
@@ -22,7 +21,6 @@ public class Ride {
 
     @OneToMany(mappedBy = "trajet")
     private List<Review> reviews;
-
 
     @Column(nullable = false, length = 100)
     private String pointDepart;
@@ -45,7 +43,7 @@ public class Ride {
     @Column(length = 500)
     private String restrictions;
 
-    // Getters et setters
+    // Getters and setters
     public Long getId() {
         return id;
     }

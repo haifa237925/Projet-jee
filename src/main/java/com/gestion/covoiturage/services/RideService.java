@@ -17,22 +17,18 @@ public class RideService {
         this.rideRepository = rideRepository;
     }
 
-    // Méthode pour récupérer tous les trajets
     public List<Ride> getAllRides() {
         return rideRepository.findAll();
     }
 
-    // Méthode pour récupérer un trajet par son ID
     public Ride getRideById(Long id) {
         return rideRepository.findById(id).orElse(null);
     }
 
-    // Méthode pour ajouter un nouveau trajet
     public Ride addRide(Ride ride) {
         return rideRepository.save(ride);
     }
 
-    // Méthode pour mettre à jour un trajet
     public Ride updateRide(Long id, Ride rideDetails) {
         Ride ride = rideRepository.findById(id).orElse(null);
         if (ride != null) {
@@ -46,7 +42,6 @@ public class RideService {
         return null;
     }
 
-    // Méthode pour supprimer un trajet
     public void deleteRide(Long id) {
         rideRepository.deleteById(id);
     }
